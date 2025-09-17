@@ -1,14 +1,14 @@
 import phonenumbers
 from phonenumbers import geocoder, carrier, timezone, PhoneNumberFormat, format_number, number_type, PhoneNumberType, is_possible_number, is_valid_number
 
-# ইউজারের কাছ থেকে নাম্বার ইনপুট
+# Input the users phone number 
 raw_number = input("Enter Your Phone Number with Country Code (Ex. +8801712345678): ")
 
 # Parse number
 try:
     parsed_number = phonenumbers.parse(raw_number, None)
 
-    print("\n--- ফোন নাম্বারের তথ্য ---")
+    print("\n---Informations of the phone numbe---")
     print(f"Parsed Number (Country code + National number): {parsed_number}")
 
     # Validation
