@@ -1,0 +1,51 @@
+import phonenumbers
+from phonenumbers import geocoder, carrier, timezone, PhoneNumberFormat, format_number, number_type, PhoneNumberType, is_possible_number, is_valid_number
+
+# ইউজারের কাছ থেকে নাম্বার ইনপুট
+raw_number = input("Enter Your Phone Number with Country Code (Ex. +8801712345678): ")
+
+# Parse number
+try:
+    parsed_number = phonenumbers.parse(raw_number, None)
+
+    print("\n--- ফোন নাম্বারের তথ্য ---")
+    print(f"Parsed Number (Country code + National number): {parsed_number}")
+
+    # Validation
+    print(f"সম্ভাব্য নাম্বার? : {is_possible_number(parsed_number)}")
+    print(f"বৈধ নাম্বার? : {is_valid_number(parsed_number)}")
+
+    # Formats
+    print("\nফরম্যাটসমূহ:")
+    print("International:", format_number(parsed_number, PhoneNumberFormat.INTERNATIONAL))
+    print("National:", format_number(parsed_number, PhoneNumberFormat.NATIONAL))
+    print("E.164:", format_number(parsed_number, PhoneNumberFormat.E164))
+
+    # Number type
+    num_type = number_type(parsed_number)
+    type_dict = {
+        PhoneNumberType.FIXED_LINE: "Fixed line",
+        PhoneNumberType.MOBILE: "Mobile",
+        PhoneNumberType.FIXED_LINE_OR_MOBILE: "Fixed line or Mobile",
+        PhoneNumberType.TOLL_FREE: "Toll free",
+        PhoneNumberType.PREMIUM_RATE: "Premium rate",
+        PhoneNumberType.SHARED_COST: "Shared cost",
+        PhoneNumberType.VOIP: "VoIP",
+        PhoneNumberType.PERSONAL_NUMBER: "Personal number",
+        PhoneNumberType.PAGER: "Pager",
+        PhoneNumberType.UAN: "UAN",
+        PhoneNumberType.UNKNOWN: "Unknown",
+    }
+    print("\nনাম্বারের টাইপ:", type_dict.get(num_type, "Unknown"))
+
+    # Geocoding
+    print("অঞ্চল/দেশ:", geocoder.description_for_number(parsed_number, "bn"))  # বাংলায়
+
+    # Carrier
+    print("অপারেটর (Carrier):", carrier.name_for_number(parsed_number, "en"))
+
+    # Timezones
+    print("সম্ভাব্য টাইমজোন:", timezone.time_zones_for_number(parsed_number))
+
+except phonenumbers.NumberParseException as e:
+    print("❌ নাম্বারটি পার্স করা যায়নি:", e)
