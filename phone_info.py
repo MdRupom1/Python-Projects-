@@ -12,11 +12,11 @@ try:
     print(f"Parsed Number (Country code + National number): {parsed_number}")
 
     # Validation
-    print(f"সম্ভাব্য নাম্বার? : {is_possible_number(parsed_number)}")
-    print(f"বৈধ নাম্বার? : {is_valid_number(parsed_number)}")
+    print(f"Possible numbers? : {is_possible_number(parsed_number)}")
+    print(f"Valid number? : {is_valid_number(parsed_number)}")
 
     # Formats
-    print("\nফরম্যাটসমূহ:")
+    print("\n Formats:")
     print("International:", format_number(parsed_number, PhoneNumberFormat.INTERNATIONAL))
     print("National:", format_number(parsed_number, PhoneNumberFormat.NATIONAL))
     print("E.164:", format_number(parsed_number, PhoneNumberFormat.E164))
@@ -36,16 +36,16 @@ try:
         PhoneNumberType.UAN: "UAN",
         PhoneNumberType.UNKNOWN: "Unknown",
     }
-    print("\nনাম্বারের টাইপ:", type_dict.get(num_type, "Unknown"))
+    print("\n Number type:", type_dict.get(num_type, "Unknown"))
 
     # Geocoding
-    print("অঞ্চল/দেশ:", geocoder.description_for_number(parsed_number, "bn"))  # বাংলায়
+    print("Region Country:", geocoder.description_for_number(parsed_number, "en"))  
 
     # Carrier
-    print("অপারেটর (Carrier):", carrier.name_for_number(parsed_number, "en"))
+    print("Operator (Carrier):", carrier.name_for_number(parsed_number, "en"))
 
     # Timezones
-    print("সম্ভাব্য টাইমজোন:", timezone.time_zones_for_number(parsed_number))
+    print("Possible time zone:", timezone.time_zones_for_number(parsed_number))
 
 except phonenumbers.NumberParseException as e:
-    print("❌ নাম্বারটি পার্স করা যায়নি:", e)
+    print("❌ The number could not be parsed.:", e)
